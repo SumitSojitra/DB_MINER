@@ -9,13 +9,13 @@ class QuotesApiHelper {
 
   static QuotesApiHelper quotesApiHelper = QuotesApiHelper._();
 
-  getApi() async{
-    http.Response response = await http.get(Uri.parse("https://zenquotes.io/api/quotes"),);
+ Future<QuotesModel?> getApi() async{
+    http.Response response = await http.get(Uri.parse("https://dummyjson.com/quotes"),);
 
     if(response==200){
       Map decodedData = jsonDecode(response.body);
 
-     QuotesModel post=  QuotesModel.fromMap(data: decodedData);
+     QuotesModel post=  QuotesModel.fromMap(data: decodedData['quotes']);
       print("====================");
       print("${response}");
       print("====================");
