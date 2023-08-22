@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:db_miner/model/model.dart';
@@ -9,13 +8,18 @@ class QuotesApiHelper {
 
   static QuotesApiHelper quotesApiHelper = QuotesApiHelper._();
 
- Future<QuotesModel?> getApi() async{
-    http.Response response = await http.get(Uri.parse("https://dummyjson.com/quotes"),);
+  Future<List<QuotesModel>?> getApi() async {
+    http.Response response = await http.get(
+      Uri.parse("https://dummyjson.com/quotes"),
+    );
 
-    if(response==200){
-      Map decodedData = jsonDecode(response.body);
+    if (response == 200) {
+      var decodedData = jsonDecode(response.body);
 
-     QuotesModel post=  QuotesModel.fromMap(data: decodedData['quotes']);
+      List apiData = decodedData['quotes'];
+      List<QuotesModel> post =
+          apiData.map((e) => QuotesModel.fromMap(data: e)).toList();
+
       print("====================");
       print("${response}");
       print("====================");
